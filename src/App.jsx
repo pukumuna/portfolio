@@ -1,11 +1,454 @@
-import{Routes,Route,Link,useParams}from'react-router-dom';import logo from'./assets/logo-gsk.png';
-const projects=[
-{slug:'sophie-bluel',title:'Sophie Bluel',sub:"Portfolio d’une architecte d’intérieur",stack:['HTML5','CSS3','JavaScript','API REST'],context:"Développement front-end d’un site d’architecte d’intérieur avec communication avec une API.",objectives:"Afficher dynamiquement les travaux, gérer les interactions, la connexion administrateur et une modale d’ajout de médias.",skills:"JavaScript, événements, DOM, formulaires et API."},
-{slug:'kasa',title:'Kasa',sub:'Application de location immobilière',stack:['React','React Router','Vite','Sass'],context:"Implémentation du front-end d’une application de location immobilière à partir de maquettes.",objectives:"Créer des composants réutilisables, configurer la navigation et proposer une interface responsive.",skills:"React, React Router, Vite, Sass et animations CSS."},
-{slug:'grimoire',title:'Mon Vieux Grimoire',sub:'Site de notation de livres',stack:['Node.js','Express','MongoDB','Mongoose'],context:"Développement d’un back-end avec serveur Express/API REST connecté à MongoDB.",objectives:"CRUD sécurisé, authentification, images et notation des livres.",skills:"Node.js, Express, MongoDB, Mongoose, sécurité et MVC."},
-{slug:'menu-maker',title:'Menu Maker / Qwenta',sub:'Planification d’une application web',stack:['Architecture','Spécifications','Kanban','Veille'],context:"Planification à partir d’une maquette, de spécifications fonctionnelles et de User Stories.",objectives:"Présenter la solution technique, rédiger les spécifications et organiser les tâches.",skills:"Architecture technique, spécifications, Kanban et veille."}];
-function Header(){return <header><div className="container nav"><Link className="brand" to="/"><img src={logo} alt=""/>GSK</Link><nav aria-label="Navigation principale"><a href="/#apropos">À propos</a><a href="/#competences">Compétences</a><a href="/#projets">Projets</a><a href="/#parcours">Parcours</a><a href="/#contact">Contact</a></nav></div></header>}
-function Layout({children}){return <><Header/>{children}<footer><div className="container">© 2026 Georges Kabuku — Portfolio</div></footer></>}
-function Home(){return <Layout><main id="contenu"><section className="hero"><div className="container heroGrid"><div><p className="eyebrow">PORTFOLIO • DÉVELOPPEMENT WEB</p><h1>Georges Kabuku<br/><span>Développeur Full-Stack</span></h1><p className="lead">Je conçois des expériences web modernes, accessibles et responsives.</p><div className="actions"><a className="btn primary" href="#projets">Voir mes projets</a><a className="btn secondary" href="#contact">Me contacter</a></div></div><div className="portrait"><img src={logo} alt="Logo GSK utilisé provisoirement à la place du portrait"/><small>Portrait à venir</small></div></div></section><section id="apropos" className="section"><div className="container narrow"><p className="eyebrow">À PROPOS</p><h2>Du Mainframe au développement web moderne</h2><p>Ancien analyste Mainframe, j’ai suivi la formation Développeur Web d’OpenClassrooms afin de consolider mes compétences en conception et réalisation de projets web.</p></div></section><section id="competences" className="section alt"><div className="container"><p className="eyebrow">COMPÉTENCES</p><h2>Ma boîte à outils</h2><div className="skills"><article><h3>Front-end</h3><p>HTML5 · CSS3 · JavaScript · React · React Router · Sass · Vite</p></article><article><h3>Back-end</h3><p>Node.js · Express · API REST · MongoDB · Mongoose</p></article><article><h3>Qualité</h3><p>Responsive · Accessibilité · SEO · Performance · Git/GitHub</p></article></div></div></section><section id="projets" className="section"><div className="container"><p className="eyebrow">PROJETS</p><h2>Mes réalisations</h2><p>Cliquez sur une carte pour afficher les détails.</p><div className="cards">{projects.map((p,i)=><Link className="card" to={'/projets/'+p.slug} key={p.slug}><div className="visual"><span>0{i+1}</span><strong>{p.title}</strong></div><div className="body"><h3>{p.title}</h3><p>{p.sub}</p><div className="tags">{p.stack.map(t=><span key={t}>{t}</span>)}</div><b>Voir le projet →</b></div></Link>)}</div></div></section><section id="parcours" className="section alt"><div className="container"><p className="eyebrow">PARCOURS</p><h2>Formation & expérience</h2><div className="timeline"><p><b>Développement Web</b><br/>Formation OpenClassrooms et projets professionnalisants.</p><p><b>Analyse Mainframe</b><br/>Expérience antérieure en environnement Mainframe.</p></div></div></section><section id="contact" className="section contact"><div className="container narrow"><p className="eyebrow">CONTACT</p><h2>Échangeons</h2><p>Zone prête à recevoir votre e-mail, LinkedIn et GitHub.</p></div></section></main></Layout>}
-function Detail(){const{slug}=useParams();const p=projects.find(x=>x.slug===slug);if(!p)return <Layout><main className="section container"><h1>Projet introuvable</h1></main></Layout>;return <Layout><main id="contenu" className="section"><article className="container narrow"><Link to="/">← Retour</Link><p className="eyebrow">ÉTUDE DE CAS</p><h1 className="dark">{p.title}</h1><p className="lead darkLead">{p.sub}</p><div className="tags">{p.stack.map(t=><span key={t}>{t}</span>)}</div><div className="details"><section><h2>Contexte</h2><p>{p.context}</p></section><section><h2>Objectifs</h2><p>{p.objectives}</p></section><section><h2>Compétences développées</h2><p>{p.skills}</p></section><section><h2>Résultats et impact</h2><p>Projet réalisé dans le cadre de la formation et présenté comme étude de cas dans le portfolio.</p></section><section><h2>Perspectives d’amélioration</h2><p>Compléter les tests, les métriques et les liens vers le dépôt GitHub et la démonstration.</p></section></div></article></main></Layout>}
-export default function App(){return <Routes><Route path="/" element={<Home/>}/><Route path="/projets/:slug" element={<Detail/>}/></Routes>}
+import { useEffect } from 'react'
+
+import { Routes, Route, Link, 
+        NavLink, useParams, useLocation } from 'react-router-dom'
+
+import { projects } from './data.js'
+
+import logo from './assets/logo-gsk.png'
+
+import imageGsk from './assets/image-gsk.jpeg'
+
+// ==============================================
+//ScrollToTop : Permettre de revenir en Haut de 
+// Page d'Accueil sur clic sur Logo (Link to='/')
+// =============================================/
+
+function ScrollToTop() {
+  const { pathname, hash } = useLocation()
+  // ex: location = [{pathname: "/projets/kasa", search: "", hash: ""}]
+  // useEffect est activé au  change de pathname et/ou hash; avec la 
+  //fonction fléchée exécutée en callback
+
+  useEffect(() => {
+    if (hash) { 
+       document.getElementById(hash.slice(1))?.scrollIntoView() } 
+    else {
+       window.scrollTo(0, 0)
+    }
+  }, [pathname, hash])
+  return null
+}
+
+// ==============================================
+// LAYOUT
+// Header + Footer communs aux différentes pages
+// =============================================/
+
+function Layout({ children }) {
+
+  return (
+    <>
+      <header className="site-header">
+
+        <div className="container nav-wrap">
+
+          <Link className="brand" to="/" aria-label="Accueil du portfolio" >
+            <img src={logo} alt="" />
+            <span> Georges Kabuku </span>
+          </Link>
+
+          <nav aria-label="Navigation principale">
+            <NavLink to="/" end > Accueil </NavLink>
+            <a href="/#apropos"> À propos </a>
+            <a href="/#competences"> Compétences </a>
+            <a href="/#projets"> Projets </a>
+            <a href="/#parcours"> Parcours </a>
+            <a href="/#contact"> Contact </a>
+          </nav>
+
+        </div>
+
+      </header>
+
+
+      {children}
+
+
+      <footer>
+
+        <div className="container footer-wrap">
+          <img src={logo} alt="" />
+          <p> © 2026 Georges Kabuku — Portfolio développeur Full-Stack </p>
+        </div>
+
+      </footer>
+
+    </>
+  )
+}
+
+// ==========================================
+// PAGE D'ACCUEIL
+// ==========================================
+
+function Home() {
+
+  return (
+
+    <Layout>
+
+      <main id="contenu">
+
+        {/* ==========================
+            HERO
+        ========================== */}
+
+        <section className="hero">
+
+          <div className="container hero-content">
+
+            <div className="hero-text">
+              <p className="eyebrow"> PORTFOLIO • DÉVELOPPEMENT WEB </p>
+
+              <h1> Georges Kabuku <br />
+                <span> Développeur Full-Stack </span>
+              </h1>
+
+              <p className="lead">
+                Je conçois et réalise des applications web modernes,
+                accessibles et responsives,
+                du front-end React au back-end Node.js.
+              </p>
+
+              <div className="actions">
+                <a className="btn primary" href="#projets" > Voir mes projets </a>
+                <a className="btn secondary" href="#contact" > Me contacter </a>
+              </div>
+
+            </div>
+
+             <div className="hero-photo">
+                <img
+                    src={imageGsk}
+                    alt="Portrait du développeur"
+                    className="profile-photo"
+                />
+             </div>
+            </div>
+        </section>
+
+        {/* ==========================
+            À PROPOS
+        ========================== */}
+
+        <section id="apropos" className="section"         >
+
+          <div className="container narrow">
+
+            <p className="eyebrow"> À PROPOS </p>
+
+            <h2> Des applications Mainframe au développement web moderne </h2>
+
+            <p>
+              Ancien analyste-réalisateur Mainframe, j’ai suivi
+              la formation Développeur Web
+              d’OpenClassrooms afin de consolider
+              mes compétences en conception et
+              réalisation de projets web.
+            </p>
+
+            <p>
+              Mes projets m’ont permis de progresser
+              notamment avec React, Node.js,
+              Express et MongoDB.
+            </p>
+
+          </div>
+
+        </section>
+
+        {/* ==========================
+            COMPÉTENCES
+        ========================== */}
+
+        <section id="competences" className="section alt" >
+
+          <div className="container">
+            <p className="eyebrow"> COMPÉTENCES </p>
+
+            <h2> Ma boîte à outils </h2>
+
+            <div className="skills-grid">
+
+              <article>
+                <h3> Front-end </h3>
+
+                <p>
+                  HTML5 · CSS3 · JavaScript · React ·
+                  React Router · Sass · Vite
+                </p>
+              </article>
+
+
+              <article>
+                <h3> Back-end </h3>
+
+                <p>
+                  Node.js · Express · API REST ·
+                  MongoDB · Mongoose
+                </p>
+              </article>
+
+
+              <article>
+                <h3> Qualité </h3>
+
+                <p>
+                  Responsive · Accessibilité · SEO ·
+                  Performance · Git/GitHub
+                </p>
+              </article>
+
+            </div>
+
+          </div>
+
+        </section>
+
+
+        {/* ==========================
+            PROJETS
+        ========================== */}
+
+        <section id="projets" className="section" >
+
+          <div className="container">
+            <p className="eyebrow"> PROJETS </p>
+
+            <h2> Une sélection de réalisations </h2>
+
+            <p className="section-intro">
+              Cliquez sur une carte pour découvrir
+              le contexte, les objectifs,
+              la stack et les compétences développées.
+            </p>
+
+
+            <div className="project-grid">
+
+              {projects.map((project, index) => (
+
+                <Link className="project-card" to={`/projets/${project.slug}`}
+                    key={project.slug} aria-label={ `Voir le détail du projet ${project.title}` } 
+                >
+                  <div className="project-visual">
+                    <span> 0{index + 1} </span>
+
+                    <strong> {project.title} </strong>
+                  </div>
+
+                  <div className="project-body">
+                    <h3> {project.title} </h3>
+
+                    <p> {project.subtitle} </p>
+
+                    <div className="tags">
+
+                      {project.stack .slice(0, 4) .map((technology) => (
+                          <span key={technology}> {technology} </span>
+                        ))
+                      }
+
+                    </div>
+
+                    <span className="card-link"> Voir le projet → </span>
+                  </div>
+
+                </Link>
+
+              ))} {/** fin de projects.map */}
+            </div>
+
+          </div> {/** fin de div container */}
+
+        </section>
+
+        {/* ==========================
+            PARCOURS
+        ========================== */}
+
+        <section id="parcours" className="section alt" >
+
+          <div className="container">
+
+            <p className="eyebrow"> PARCOURS </p>
+
+            <h2> Formation & expérience </h2>
+
+            <div className="timeline">
+
+              <div> 
+                <strong> Développement Web </strong>
+
+                <p>
+                  Formation OpenClassrooms et
+                  réalisation de projets
+                  professionnalisants.
+                </p>
+              </div>
+
+
+              <div>
+                <strong> Analyse-réalisateur Mainframe </strong>
+
+                <p>
+                  Expérience antérieure en analyse et réalisation des applications
+                  en environnement Mainframe.
+                </p>
+              </div>
+
+            </div>
+
+          </div>
+
+        </section>
+
+
+
+        {/* ==========================
+            CONTACT
+        ========================== */}
+
+        <section id="contact" className="section contact"
+        >
+
+          <div className="container narrow">
+
+            <p className="eyebrow"> CONTACT </p>
+
+            <h2> Échangeons </h2>
+
+            <p>
+              Cette zone est prête à recevoir
+              vos coordonnées et liens professionnels
+              lors de votre personnalisation finale.
+            </p>
+
+            <a className="btn primary"
+              href="mailto:adresse-a-remplacer@example.com"
+            > Adresse e-mail à remplacer </a>
+
+          </div>
+
+        </section>
+
+      </main>
+
+    </Layout>
+
+  )
+}
+
+// ==========================================
+// PAGE DE DÉTAIL D'UN PROJET
+// ==========================================
+
+function ProjectDetail() {
+
+  const { slug } = useParams()
+
+  const project = projects.find(
+    (project) => project.slug === slug
+  )
+
+  // Projet inexistant
+
+  if (!project) {
+
+    return (
+      <Layout>
+        <main id="contenu" className="section" >
+          <div className="container">
+            <h1> Projet introuvable </h1>
+            <Link to="/"> Retour à l’accueil </Link>
+          </div>
+        </main>
+      </Layout>
+    )
+  }
+
+  // Projet trouvé
+  return (
+
+    <Layout>
+         
+      <main id="contenu">
+        <article className="project-detail">
+          <div className="container narrow">
+
+            <Link className="back" to="/#projets" > ← Retour aux projets </Link>
+
+            <p className="eyebrow"> ÉTUDE DE CAS </p>
+            <h1> {project.title} </h1>
+            <p className="lead"> {project.subtitle} </p>
+            
+            <div className="tags detail-tags">
+              {project.stack.map((technology) => (
+                <span key={technology}> {technology} </span>
+              ))}
+            </div>
+
+            <div className="detail-grid">
+              <section>
+                <h2> Contexte </h2>
+                <p> {project.context} </p>
+              </section>
+
+              <section>
+                <h2> Objectifs </h2>
+                <p> {project.objectives} </p>
+              </section>
+
+              <section>
+                <h2> Compétences développées </h2>
+                <p> {project.skills} </p>
+              </section>
+
+              <section>
+                <h2> Résultats et impact </h2>
+                <p> {project.result} </p>
+              </section>
+
+              <section>
+                <h2> Perspectives d’amélioration </h2>
+                <p> {project.improvement} </p>
+              </section>
+
+            </div>  {/*-- fin de detail-grid -- */} 
+
+          </div>  {/* fin de container narrow -- */}
+
+        </article>
+      </main>
+
+    </Layout>
+
+  )
+}
+
+
+// ==========================================
+// ROUTES DE L'APPLICATION
+// ==========================================
+
+export default function App() {
+
+  return (
+    <>
+        <ScrollToTop /> 
+        { /* exécute  la logique de défilement après une navigation : 
+        revenir en haut de la page ou rejoindre une section comme #projets */ }
+
+        <Routes>
+
+            <Route path="/" element={<Home />}  />
+            <Route path="/projets/:slug" element={<ProjectDetail />} />
+
+        </Routes>
+        { /* <Routes> et <Route> permettent de sélectionner le composant à afficher en fonction de l'URL. */}
+        { /* URL : / ---  Composant affiché : Home | URL : /#projets ---  Composant : Home, à la section Projets */}
+        { /* URL : /projets/kasa ---  Composant : ProjectDetail | URL : /projets/sophie-bluel ---  Composant : ProjectDetail */}
+    </>
+  )
+}
