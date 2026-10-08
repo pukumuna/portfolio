@@ -16,17 +16,18 @@ import imageGsk from './assets/image-gsk.jpeg'
 
 function ScrollToTop() {
   const { pathname, hash } = useLocation()
-  // ex: location = [{pathname: "/projets/kasa", search: "", hash: ""}]
-  // useEffect est activé au  change de pathname et/ou hash; avec la 
-  //fonction fléchée exécutée en callback
 
   useEffect(() => {
-    if (hash) { 
-       document.getElementById(hash.slice(1))?.scrollIntoView() } 
-    else {
-       window.scrollTo(0, 0)
+    if (hash) {
+      const id = hash.slice(1)
+      const frame = requestAnimationFrame(() => {
+        document.getElementById(id)?.scrollIntoView()
+      })
+      return () => cancelAnimationFrame(frame)
     }
+    window.scrollTo(0, 0)
   }, [pathname, hash])
+
   return null
 }
 
@@ -50,11 +51,11 @@ function Layout({ children }) {
 
           <nav aria-label="Navigation principale">
             <NavLink to="/" end > Accueil </NavLink>
-            <a href="/#apropos"> À propos </a>
-            <a href="/#competences"> Compétences </a>
-            <a href="/#projets"> Projets </a>
-            <a href="/#parcours"> Parcours </a>
-            <a href="/#contact"> Contact </a>
+            <Link to="/#apropos"> À propos </Link>
+            <Link to="/#competences"> Compétences </Link>
+            <Link to="/#projets"> Projets </Link>
+            <Link to="/#parcours"> Parcours </Link>
+            <Link to="/#contact"> Contact </Link>
           </nav>
 
         </div>
@@ -112,8 +113,8 @@ function Home() {
               </p>
 
               <div className="actions">
-                <a className="btn primary" href="#projets" > Voir mes projets </a>
-                <a className="btn secondary" href="#contact" > Me contacter </a>
+                <Link className="btn primary" to="/#projets">  Voir mes projets </Link>
+                <Link className="btn secondary" to="/#contact">  Me contacter  </Link>
               </div>
 
             </div>
