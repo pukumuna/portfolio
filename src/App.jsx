@@ -1,9 +1,11 @@
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 
 import { Routes, Route, Link, 
         NavLink, useParams, useLocation } from 'react-router-dom'
 
 import { projects } from './data.js'
+
+import ContactForm from './ContactForm.jsx'
 
 import logo from './assets/logo-gsk.png'
 
@@ -37,6 +39,7 @@ function ScrollToTop() {
 // =============================================/
 
 function Layout({ children }) {
+  const [menuOpen, setMenuOpen] = useState(false)
 
   return (
     <>
@@ -49,14 +52,27 @@ function Layout({ children }) {
             <span> Georges Kabuku </span>
           </Link>
 
-          <nav aria-label="Navigation principale">
-            <NavLink to="/" end > Accueil </NavLink>
-            <Link to="/#apropos"> À propos </Link>
-            <Link to="/#competences"> Compétences </Link>
-            <Link to="/#projets"> Projets </Link>
-            <Link to="/#parcours"> Parcours </Link>
-            <Link to="/#contact"> Contact </Link>
-          </nav>
+            <button type="button" className="menu-toggle"
+                aria-label={menuOpen ? 'Fermer le menu' : 'Ouvrir le menu'}
+                aria-expanded={menuOpen}
+                aria-controls="navigation-principale"
+                onClick={() => setMenuOpen(!menuOpen)}
+            >
+                {menuOpen ? '✕' : '☰'}
+            </button>
+
+            <nav id="navigation-principale"
+                 className={menuOpen ? 'nav-open' : ''}
+                 aria-label="Navigation principale"
+                 onClick= { (event) => {if (event.target.closest('a')) setMenuOpen(false)} }
+            >
+                <NavLink to="/" end> Accueil </NavLink>
+                <Link to="/#apropos"> À propos </Link>
+                <Link to="/#competences"> Compétences </Link>
+                <Link to="/#projets"> Projets </Link>
+                <Link to="/#parcours"> Parcours </Link>
+                <Link to="/#contact"> Contact </Link>
+            </nav>
 
         </div>
 
@@ -311,29 +327,29 @@ function Home() {
             CONTACT
         ========================== */}
 
-        <section id="contact" className="section contact"
-        >
+        {/* ==========================
+            CONTACT
+        ========================== */}
 
-          <div className="container narrow">
+        <section id="contact" className="section contact">
 
-            <p className="eyebrow"> CONTACT </p>
+            <div className="container narrow">
 
-            <h2> Échangeons </h2>
+                <p className="eyebrow">CONTACT</p>
 
-            <p>
-              Cette zone est prête à recevoir
-              vos coordonnées et liens professionnels
-              lors de votre personnalisation finale.
-            </p>
+                <h2>Échangeons</h2>
 
-            <a className="btn primary"
-              href="mailto:adresse-a-remplacer@example.com"
-            > Adresse e-mail à remplacer </a>
+                <p>
+                    Vous souhaitez me contacter au sujet d'un projet
+                    ou d'une collaboration ? Remplissez le formulaire
+                    ci-dessous.
+                </p>
 
-          </div>
+                <ContactForm />
+
+            </div>
 
         </section>
-
       </main>
 
     </Layout>
