@@ -17,16 +17,19 @@ import imageGsk from './assets/gkab.webp'
 // Page d'Accueil sur clic sur Logo (Link to='/')
 // =============================================/
 
-function ScrollToTop() {
+function ScrollToTop() { /** Récupération adreeee avec useLocation
+  Exemple: http://localhost:5173/portfolio/#projets : pathname = /portfolio/
+  hash : #projets ou http://localhost:5173/portfolio/projets/kasa
+  pathname = "/portfolio/projets/kasa" hash = "" */
   const { pathname, hash } = useLocation()
 
   useEffect(() => {
-    if (hash) {
-      const id = hash.slice(1)
-      const frame = requestAnimationFrame(() => {
-        document.getElementById(id)?.scrollIntoView()
-      })
-      return () => cancelAnimationFrame(frame)
+    if (hash) {  /** Cette condition vérifie si l'URL contient une ancre exemple hash = /#contact */
+       const id = hash.slice(1) /** supprimer le caractère # */
+       const frame = requestAnimationFrame(() => {
+             document.getElementById(id)?.scrollIntoView()
+       })
+       return () => cancelAnimationFrame(frame)
     }
     window.scrollTo(0, 0)
   }, [pathname, hash])
