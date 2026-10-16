@@ -114,7 +114,7 @@ export const projects = [
   {
     slug: 'menu-maker',
 
-    title: 'Menu Maker / Qwenta',
+    title: 'Menu Maker ',
 
     subtitle: 'Planification d’une application web',
 

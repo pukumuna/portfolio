@@ -1,5 +1,7 @@
 import { useState } from 'react'
 
+import emailjs from '@emailjs/browser'
+
 const initialValues = {
   nom: '',
   prenom: '',
@@ -12,6 +14,7 @@ export default function ContactForm() {
   const [form, setForm] = useState(initialValues)
   const [errors, setErrors] = useState({})
   const [status, setStatus] = useState('')
+  const [sending, setSending] = useState(false)
 
   const handleChange = (event) => {
     const { name, value } = event.target
@@ -20,7 +23,7 @@ export default function ContactForm() {
     setStatus('')
   }
 
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault()
     const nextErrors = {}
 
@@ -39,15 +42,43 @@ export default function ContactForm() {
       return
     }
 
-    // Étape suivante : remplacer ce message par l'envoi avec EmailJS.
-    setStatus('Formulaire valide. Envoi par e-mail non encore configuré.')
+    setSending(true)
+    setStatus('Envoi du message en cours...')
+
+    try {
+      await emailjs.send(
+        import.meta.env.VITE_EMAILJS_SERVICE_ID,
+        import.meta.env.VITE_EMAILJS_TEMPLATE_ID,
+        {
+          nom: form.nom.trim(),
+          prenom: form.prenom.trim(),
+          email: form.email.trim(),
+          telephone: form.telephone.trim(),
+          message: form.message.trim()
+        },
+        {
+          publicKey: import.meta.env.VITE_EMAILJS_PUBLIC_KEY
+        }
+      )
+
+      setStatus('Votre message a été envoyé avec succès.')
+      setForm(initialValues)
+      setErrors({})
+    } catch (error) {
+      console.error('Erreur EmailJS :', error)
+      console.error('Code HTTP :', error.status)
+      console.error('Détail EmailJS :', error.text)
+      setStatus("L'envoi a échoué. Veuillez réessayer.")
+    } finally {
+      setSending(false)
+    }
   }
 
   return (
     <form className="contact-form" onSubmit={handleSubmit} noValidate>
       <div className="contact-form-grid">
         <div className="form-field">
-          <label htmlFor="nom">Nom *</label>
+          <label htmlFor="nom">Nom </label>
           <input id="nom" name="nom" autoComplete="family-name"
             value={form.nom} onChange={handleChange}
             aria-invalid={Boolean(errors.nom)}
@@ -56,7 +87,7 @@ export default function ContactForm() {
         </div>
 
         <div className="form-field">
-          <label htmlFor="prenom">Prénom *</label>
+          <label htmlFor="prenom">Prénom </label>
           <input id="prenom" name="prenom" autoComplete="given-name"
             value={form.prenom} onChange={handleChange}
             aria-invalid={Boolean(errors.prenom)}
@@ -65,7 +96,7 @@ export default function ContactForm() {
         </div>
 
         <div className="form-field">
-          <label htmlFor="email">Adresse e-mail *</label>
+          <label htmlFor="email">Adresse e-mail </label>
           <input id="email" name="email" type="email" autoComplete="email"
             value={form.email} onChange={handleChange}
             aria-invalid={Boolean(errors.email)}
@@ -78,20 +109,24 @@ export default function ContactForm() {
           <input id="telephone" name="telephone" type="tel" autoComplete="tel"
             value={form.telephone} onChange={handleChange} />
         </div>
-      </div>
+
+      </div> {/** className="contact-form-grid */}
 
       <div className="form-field">
-        <label htmlFor="message">Message *</label>
+        <label htmlFor="message">Message </label>
         <textarea id="message" name="message" rows={6}
           value={form.message} onChange={handleChange}
           aria-invalid={Boolean(errors.message)}
           aria-describedby={errors.message ? 'erreur-message' : undefined} />
         {errors.message && <p id="erreur-message" className="form-error">{errors.message}</p>}
       </div>
-
-      <p className="form-hint">* Champs obligatoires</p>
-      <button className="btn primary" type="submit">Envoyer</button>
-      {status && <p role="status">{status}</p>}
+      <div className="center-envoyer" >
+        <button className="btn primary" type="submit" disabled={sending} >
+          {sending ? 'Envoi en cours...' : 'Envoyer'}
+        </button>
+      </div>
+       
+      {status && <p role="status"> {status} </p>}
     </form>
   )
 }

@@ -7,12 +7,13 @@ import { projects } from './data.js'
 
 import ContactForm from './ContactForm.jsx'
 
-import logo from './assets/logo-gsk.png'
+import logo from './assets/logo-120.webp'
 
-import imageGsk from './assets/image-gsk.jpeg'
+import imageGsk from './assets/gkab.webp'
 
 // ==============================================
 //ScrollToTop : Permettre de revenir en Haut de 
+
 // Page d'Accueil sur clic sur Logo (Link to='/')
 // =============================================/
 
@@ -33,10 +34,9 @@ function ScrollToTop() {
   return null
 }
 
-// ==============================================
-// LAYOUT
-// Header + Footer communs aux différentes pages
-// =============================================/
+// ==========================================================
+// LAYOUT : // Header + Footer communs aux différentes pages
+// =========================================================/
 
 function Layout({ children }) {
   const [menuOpen, setMenuOpen] = useState(false)
@@ -47,11 +47,13 @@ function Layout({ children }) {
 
         <div className="container nav-wrap">
 
-          <Link className="brand" to="/" aria-label="Accueil du portfolio" >
-            <img src={logo} alt="" />
-            <span> Georges Kabuku </span>
-          </Link>
-
+            <Link className="brand" to="/" aria-label="Accueil du portfolio" >
+                <img src={logo} alt="image du logo" />
+                <span> Georges Kabuku </span>
+            </Link>
+             {/**aria-label= Permet au lecteur d'écran d'annoncer l'action sur le bouton */}
+             {/**aria-expanded = Permet d'indiquer si le menu est ouvert ou fermé */}
+             {/**aria-controls : Permet identifier de quel menu il s'agit */}
             <button type="button" className="menu-toggle"
                 aria-label={menuOpen ? 'Fermer le menu' : 'Ouvrir le menu'}
                 aria-expanded={menuOpen}
@@ -61,8 +63,7 @@ function Layout({ children }) {
                 {menuOpen ? '✕' : '☰'}
             </button>
 
-            <nav id="navigation-principale"
-                 className={menuOpen ? 'nav-open' : ''}
+            <nav id="navigation-principale" className={menuOpen ? 'nav-open' : ''}
                  aria-label="Navigation principale"
                  onClick= { (event) => {if (event.target.closest('a')) setMenuOpen(false)} }
             >
@@ -85,7 +86,7 @@ function Layout({ children }) {
       <footer>
 
         <div className="container footer-wrap">
-          <img src={logo} alt="" />
+          <img src={logo} alt="logo de Georges Kabuku" />
           <p> © 2026 Georges Kabuku — Portfolio développeur Full-Stack </p>
         </div>
 
@@ -124,8 +125,7 @@ function Home() {
 
               <p className="lead">
                 Je conçois et réalise des applications web modernes,
-                accessibles et responsives,
-                du front-end React au back-end Node.js.
+                accessibles et responsives, du front-end React au back-end Node.js.
               </p>
 
               <div className="actions">
@@ -136,11 +136,8 @@ function Home() {
             </div>
 
              <div className="hero-photo">
-                <img
-                    src={imageGsk}
-                    alt="Portrait du développeur"
-                    className="profile-photo"
-                />
+                <img src={imageGsk} alt="Portrait du développeur" 
+                 className="profile-photo" fetchpriority="high" />
              </div>
             </div>
         </section>
@@ -251,7 +248,6 @@ function Home() {
                 >
                   <div className="project-visual">
                     <span> 0{index + 1} </span>
-
                     <strong> {project.title} </strong>
                   </div>
 
@@ -310,8 +306,33 @@ function Home() {
                 <strong> Analyse-réalisateur Mainframe </strong>
 
                 <p>
-                  Expérience antérieure en analyse et réalisation des applications
-                  en environnement Mainframe.
+                  Analyse Programmeur : STIME - InterMarché de 1986 à 1988.  <br/>
+                  Gestion des commandes de ITC : Ventes de produits du groupe Intermarché  <br/>
+                  aux collectivités telles que restaurants, associations, Ehpad, hôptitaux.  
+                </p>
+                <p>
+                  Analyse Réalisateur : SLIGOS puis ATOS - SSII de 1988 à 1998.  <br/>
+                  Système d'information de la carte bancaire pour prévention de fraude.  <br/>
+                  Refonte du système de rélèvés cartes bancaires.  <br/>
+                  Mise en place de la plateforme de Gestion de Paiements (carte, virement,  <br/>
+                  prélèvement, chèques) du Groupe Renault.  
+                </p>
+                <p>
+                  Ingénieur Analyste : Autres SSII et Indépendant de 1998 à 2023.  <br/>
+                  Algoriel, MCI, AXEL, NEOSOFT, GEOS.  <br/>
+                  Indépendant : CERP à Roeun (2015-2018), Fnac-Darty (2018-2022),   <br/>
+                  ManPower (2022-2023).
+                </p>
+              </div>
+
+              <div> 
+                <strong> Fomation </strong>
+
+                <p>
+                  Maîtrise en Génie Mathématiques en Informatiques (IUP DAUPHINE) : 2000 <br/>
+                  BTS en informatique de gestion (Académie de Versailles): 1997 <br/>
+                  Graduat en Mathématiques et Physiques (Université Congo): 1978 <br/>
+                  Diplôme de fin d'études sécondaires (Sécondaire Congo) : 1975 <br/>
                 </p>
               </div>
 
@@ -321,11 +342,6 @@ function Home() {
 
         </section>
 
-
-
-        {/* ==========================
-            CONTACT
-        ========================== */}
 
         {/* ==========================
             CONTACT
@@ -337,15 +353,17 @@ function Home() {
 
                 <p className="eyebrow">CONTACT</p>
 
-                <h2>Échangeons</h2>
+                <div className="echangeons" >
+                    <h2>Échangeons</h2>
 
-                <p>
-                    Vous souhaitez me contacter au sujet d'un projet
-                    ou d'une collaboration ? Remplissez le formulaire
-                    ci-dessous.
-                </p>
+                    <p>
+                        Vous souhaitez me contacter au sujet d'un projet
+                        ou d'une collaboration ? Remplissez le formulaire
+                        ci-dessous.
+                    </p>
+                </div>
 
-                <ContactForm />
+                < ContactForm />
 
             </div>
 
