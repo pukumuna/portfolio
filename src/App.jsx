@@ -9,7 +9,7 @@ import ContactForm from './ContactForm.jsx'
 
 import logo from './assets/logo-120.webp'
 
-import imageGsk from './assets/gkab.webp'
+import imageGsk from './assets/gkab-new.webp'
 
 // ==============================================
 //ScrollToTop : Permettre de revenir en Haut de 
@@ -140,7 +140,7 @@ function Home() {
 
              <div className="hero-photo">
                 <img src={imageGsk} alt="Portrait du développeur" 
-                 className="profile-photo" fetchpriority="high" />
+                 className="profile-photo" loading="eager" fetchPriority="high" />
              </div>
             </div>
         </section>
