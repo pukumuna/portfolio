@@ -1,6 +1,15 @@
+import sophieImage from './assets/sophie.webp'
+import kasaImage from './assets/kasa.webp'
+import grimoireImage from './assets/grimoire.webp'
+import menuMakerImage from './assets/menuMaker.webp'
+
 export const projects = [
   {
     slug: 'sophie-bluel',
+
+    image: sophieImage,
+    github: 'https://github.com/pukumuna/architecte_SB',
+
 
     title: 'Sophie Bluel',
 
@@ -40,6 +49,10 @@ export const projects = [
   {
     slug: 'kasa',
 
+    image: kasaImage,
+    github: 'https://github.com/pukumuna/kasa',
+
+
     title: 'Kasa',
 
     subtitle: 'Application de location immobilière',
@@ -77,6 +90,10 @@ export const projects = [
   {
     slug: 'mon-vieux-grimoire',
 
+    image: grimoireImage,
+    github: 'https://github.com/pukumuna/grimoire',
+
+
     title: 'Mon Vieux Grimoire',
 
     subtitle: 'Back-end d’un site de notation de livres',
@@ -113,6 +130,9 @@ export const projects = [
 
   {
     slug: 'menu-maker',
+
+    image: menuMakerImage,
+
 
     title: 'Menu Maker ',
 
