@@ -90,7 +90,7 @@ export default function ContactForm() {
           <input id="nom" name="nom" autoComplete="family-name"
             value={form.nom} onChange={handleChange}
             aria-invalid={Boolean(errors.nom)}
-            aria-describedby={errors.nom ? 'erreur-nom' : undefined} />
+            aria-describedby={errors.nom ? 'erreur-nom' : undefined} aria-required="true" />
           {errors.nom && <p id="erreur-nom" className="form-error">{errors.nom}</p>}
         </div>
 
@@ -99,7 +99,7 @@ export default function ContactForm() {
           <input id="prenom" name="prenom" autoComplete="given-name"
             value={form.prenom} onChange={handleChange}
             aria-invalid={Boolean(errors.prenom)}
-            aria-describedby={errors.prenom ? 'erreur-prenom' : undefined} />
+            aria-describedby={errors.prenom ? 'erreur-prenom' : undefined} aria-required="true" />
           {errors.prenom && <p id="erreur-prenom" className="form-error">{errors.prenom}</p>}
         </div>
 
@@ -108,7 +108,7 @@ export default function ContactForm() {
           <input id="email" name="email" type="email" autoComplete="email"
             value={form.email} onChange={handleChange}
             aria-invalid={Boolean(errors.email)}
-            aria-describedby={errors.email ? 'erreur-email' : undefined} />
+            aria-describedby={errors.email ? 'erreur-email' : undefined} aria-required="true" />
           {errors.email && <p id="erreur-email" className="form-error">{errors.email}</p>}
         </div>
 
@@ -125,7 +125,7 @@ export default function ContactForm() {
         <textarea id="message" name="message" rows={6}
           value={form.message} onChange={handleChange}
           aria-invalid={Boolean(errors.message)}
-          aria-describedby={errors.message ? 'erreur-message' : undefined} />
+          aria-describedby={errors.message ? 'erreur-message' : undefined} aria-required="true" />
         {errors.message && <p id="erreur-message" className="form-error">{errors.message}</p>}
       </div>
       <div className="center-envoyer" >

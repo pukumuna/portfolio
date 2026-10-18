@@ -21,22 +21,23 @@
       content="#07172f"
     />
 	 
-
     <title>
       Georges Kabuku | Développeur Full-Stack
     </title>
  
-    <link rel="preload" as="image" href="/src/assets/gkab-new.webp" 
-          fetchpriority="high"
-    />
- 
-
   </head>
 
 
   <body>
 	
-    <a class="skip-link" href="#contenu" > Aller au contenu  </a>
+   <a
+      class="skip-link" href="#contenu"
+      onclick="event.preventDefault();
+              document.getElementById('contenu')?.focus();
+              document.getElementById('contenu')?.scrollIntoView();"
+      >
+        Aller au contenu
+  </a>
 
   
 	<div id="root"></div>
