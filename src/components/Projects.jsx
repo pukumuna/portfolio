@@ -8,7 +8,7 @@ export default function Projects() {
     <p className="eyebrow">PROJETS</p>
     <h2>Une sélection de réalisations</h2>
     <p className="section-intro">
-      Cliquez sur « Détails » pour découvrir le contexte, les objectifs,
+      Cliquez sur « Détails du projet» pour découvrir le contexte, les objectifs,
       la stack et les compétences développées.
     </p>
     <div className="project-grid">

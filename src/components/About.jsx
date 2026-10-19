@@ -7,34 +7,40 @@ export default function About() {
 
             <p className="eyebrow"> À PROPOS </p>
 
-            <h2> Des applications Mainframe au développement web moderne </h2>
+            <h2> Des applications mainframe au développement web moderne </h2>
 
             <p>
-             Avec un diplôme de gradué en Mathématique et Physiques en 1978, suivi de 3 ans <br/>
-             d’enseignement en qualité de professeur de mathématiques au collège et lycée <br/>
-             je me suis converti en informatique par un stage d’Analyste programmeur mainframe <br/>
-             à l’ESIP Paris en 1986. <br/><br/>
-             Après 2 ans d’expérience à la STIME, filiale informatique du groupe Intermarché, <br/>
-             je me suis fait embaucher à la SLIGOS en 1988 qui est devenu ensuite ATOS. <br/>
-             J’y suis resté 10 ans et j’ai principalement travaillé sur les projets de la monétique <br/>
-             comprenant les 4 moyens de paiement : carte bancaire, virement, prélèvement et chèque ; <br/>
-             le système d’information sur la carte bancaire contre la fraude (SICB) ;  <br/>
-             le système B2B de réception de différentes entreprises Clientes de leurs flux de paiements, <br/>
-             de leurs mises en forme pour télétransmission au système de télé-compensation interbancaire <br/>
-             et de l'information des Clients sur le retour de la télé-compensation. <br/>
-             En 1998 je suis partie travaillé pour les moyennes SSII telles que Algoriel, MCI, AXEL, <br/>
-             NEOSOFT, GEOS jusqu’en 2015 où j’ai travaillé comme indépendant jusqu’en 2023. <br/><br/>
-             Dans ma vie, je n’ai jamais cessé de me remettre en question et d’apprendre, en 97<br/>
-             alors que j’étais à ATOS, j’ai passé et obtenu le BTS en informatique de gestion <br/>
-             en tant qu’autodidacte. En 1999 je me suis inscrit à l’IUP–Paris Dauphine, obtenu de <br/>
-             Algoriel un congé formation de 1 an que j’ai mis à profit pour suivre les cours <br/>
-             en présentiel et décrocher à l’issue de l’année académique 1999-2000 la maîtrise <br/>
-             en génie mathématiques et informatiques. <br/><br/>
-             Etant donné mon expérience d’Analyste mainframe senior, je souhaite apporter mes services <br/>
-             à l'issue de ma formation de Développeur Web pour le développement d’applications impliquant <br/>
-             les nouvelles technologies notamment React, Node.js, Express et MongoDB; en consolider et élargir <br/>
-             mes connaissances, en acquerir plus d'expérience et compétences et les mettre à profit en <br/>
-             m’installant sur mon compte. <br/>
+             Avec un diplôme de graduat en mathématiques et physique en 1978, suivi de trois ans  
+             d’enseignement en qualité de professeur de mathématiques au collège et au lycée,  
+             je me suis reconverti dans informatique par un stage d’analyste programmeur mainframe  
+             à l’ESIP Paris en 1986. 
+             </p>
+             <p>
+             Après deux ans d’expérience à la STIME, filiale informatique du groupe Intermarché,  
+             J'ai été recruté par SLIGOS en 1988, société devenue ensuite Atos.  
+             J’y suis resté dix ans, principalement sur des projets de monétique comprenant les quatre moyens   
+             de paiement : carte bancaire, virement, prélèvement et chèque.  
+             J'ai notamment travaillé sur le système d’information des cartes bancaires contre la fraude (SICB) 
+             et sur le système B2B de réception des flux de paiements de différentes entreprises clientes, 
+             de leurs mise en forme pour télétransmission et télécompensation interbancaire  
+             et de l'information des clients du resultat.  
+             En 1998 je suis parti travailler pour des SSII de taille moyenne telles qu'Algoriel, MCI, AXEL,  
+             NEOSOFT, GEOS jusqu’en 2015, puis comme indépendant jusqu’en 2023.  
+             </p>
+             <p>
+             Je n’ai jamais cessé de me remettre en question et d’apprendre. En 97 
+             alors que j’étais chez Atos, j’ai passé et obtenu le BTS en informatique de gestion  
+             en tant qu’autodidacte. En 1999 je me suis inscrit à l’IUP de Paris Dauphine et j'ai obtenu  
+             d'Algoriel un congé de formation d'un an que j’ai mis à profit pour suivre les cours  
+             en présentiel et décrocher à l’issue de l’année académique 1999-2000 la maîtrise  
+             de génie mathématique et informatique.  
+             </p>
+             <p>
+             Étant donné mon expérience d’analyste mainframe senior, je souhaite mettre mon expérience au service 
+             des projets web impliquant les nouvelles technologies notamment React, Node.js, Express et MongoDB.  
+             Consolider et élargir mes connaissances, acquerir davantage d'expériences et des compétences sur ces 
+             technologies afin de les mettre à profit en m’installant à mon compte. 
+             
             </p>
 
           </div>

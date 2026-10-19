@@ -5,8 +5,25 @@ import logo from '../assets/logo-120.webp'
 export default function Layout({ children }) {
   const [menuOpen, setMenuOpen] = useState(false)
 
+  function allerAuContenu(event) {
+    event.preventDefault()
+
+    const contenu = document.getElementById('contenu')
+
+    if (contenu) {
+      contenu.focus()
+      contenu.scrollIntoView()
+    }
+  }
+
   return (
     <>
+      <a className="skip-link" href="#contenu"
+          onClick={allerAuContenu}
+          >
+          Aller au contenu
+      </a>
+
       <header className="site-header">
 
         <div className="container nav-wrap">
