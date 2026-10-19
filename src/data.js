@@ -134,7 +134,7 @@ export const projects = [
     image: menuMakerImage,
 
 
-    title: 'Menu Maker ',
+    title: 'Menu Maker',
 
     subtitle: 'Planification d’une application web',
 
