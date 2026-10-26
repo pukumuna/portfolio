@@ -23,7 +23,7 @@ export default function Hero() {
                 <Link className="btn primary" to="/#projets">  Voir mes projets </Link>
                 <Link className="btn secondary" to="/#contact">  Me contacter  </Link>
                 <a    className="btn secondary"
-                      href={`${import.meta.env.BASE_URL}CV_Georges_Kabuku_Portfolio.pdf`}
+                      href={`${import.meta.env.BASE_URL}cv_actualise.pdf`}
                       target="_blank" rel="noopener noreferrer" > Mon CV </a>
               </div>
 

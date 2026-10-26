@@ -43,7 +43,7 @@ export default function ContactForm() {
     }
 
     setSending(true)
-    setStatus('Envoi du message en cours ...')
+    setStatus('Envoi du message en cours...')
 
     try {
       console.log('Service ID présent :',
@@ -130,7 +130,7 @@ export default function ContactForm() {
       </div>
       <div className="center-envoyer" >
         <button className="btn primary" type="submit" disabled={sending} >
-          {sending ? 'Envoi en cours ...' : 'Envoyer'}
+          {sending ? 'Envoi en cours...' : 'Envoyer'}
         </button>
       </div>
        

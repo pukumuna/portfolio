@@ -25,7 +25,7 @@ export const projects = [
     context:
       "Développement de la partie front-end d’un site " +
       "d’architecte d’intérieur à partir d’un HTML existant, " +
-      "avec communication avec une API.",
+      "en communiquant avec une API.",
 
     objectives:
       "Afficher dynamiquement les travaux, gérer les interactions " +
@@ -149,7 +149,7 @@ export const projects = [
     context:
       "Planification du développement d’un site web " +
       "à partir d’une maquette, de spécifications " +
-      "fonctionnelles et de User Stories.",
+      "fonctionnelles et de user stories.",
 
     objectives:
       "Présenter une solution technique, rédiger les " +

@@ -50,7 +50,7 @@ export default function Layout({ children }) {
 
         <div className="container footer-wrap">
           <img src={logo} alt="" />
-          <p> © 2026 Georges Kabuku — Portfolio de développeur full—stack </p>
+          <p> © 2026 Georges Kabuku - Portfolio de développeur full—stack </p>
         </div>
 
       </footer>
